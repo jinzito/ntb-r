@@ -20,7 +20,6 @@ class TrackListItem extends Component {
             );
         });
 
-        console.log("TrackListItem.render", this.props.items.length);
         return (
             <div>
                 <label>{this.props.items.length}</label>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import Tracks from "./scenes/tracks/Tracks";
-import TrackItem from "./components/TrackList/TrackItem";
+import TrackDetails from "./scenes/tracks/TrackDetails";
 
 class App extends Component {
 
@@ -24,7 +24,7 @@ class App extends Component {
                         <hr/>
 
                         <Route path="/tracks" component={Tracks}/>
-                        <Route path="/track/:_id" component={TrackItem}/>
+                        <Route path="/track/:_id" component={TrackDetails}/>
                     </div>
                 </Router>
 

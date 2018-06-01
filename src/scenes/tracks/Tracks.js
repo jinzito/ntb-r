@@ -1,26 +1,29 @@
 import React, {Component} from "react"
-import TrackListItem from "../../components/TrackList/TrackItemsList";
+import TrackListItem from "../../components/TrackList/TrackList";
 
 class Tracks extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {hasData: false, filter:"", order:null, trackList:[], trackListSource:[]};
+        this.state = {hasData: false, filter: "", order: null, trackList: [], trackListSource: []};
         this.handleSearchChange = this.handleSearchChange.bind(this);
-        this.updateTrackList.bind(this);
     }
 
-    componentDidMount() {
-        fetch("http://localhost:8080/api/tracks", {
-            method: "POST"
-        }).then(response => response.json()).catch(err => {
-            console.log("1", err);
-        }).then((trackList) => {
-            this.setState({trackListSource: trackList, hasData: true});
+    async componentDidMount() {
+
+        try {
+            const response = await fetch("http://localhost:8080/api/tracks", {
+                method: "POST"
+            });
+            const trackList = await response.json();
+            this.setState({trackListSource: trackList});
+        } catch (error) {
+            this.setState({trackListSource: []});
+            console.log(error);
+        } finally {
+            this.setState({hasData: true});
             this.handleSearchChange();
-        }).catch(err => {
-            console.log(err);
-        })
+        }
     }
 
     handleSearchChange(event) {
@@ -28,49 +31,32 @@ class Tracks extends Component {
         const filters = filtersString.split(" ").filter(item => item && item.length > 0);
 
         const trackList = this.state.trackListSource.filter(item => {
-            if (filters.length === 0 ) {
+            if (filters.length === 0) {
                 return true;
             }
             const title = item && item.title ? item.title.toLowerCase() : null;
             if (!title) {
                 return false;
             }
-            let result = true;
-            filters.forEach(oneFilter => {
-                if (title.indexOf(oneFilter) === -1) {
-                    result = false;
+            for (const filterEntrance of filters) {
+                if (title.indexOf(filterEntrance) === -1) {
+                    return false;
                 }
-            });
-            return result;
+            }
+            return true;
         });
         this.setState({filter: filtersString, trackList: trackList});
-    }
-
-    updateTrackList() {
-
     }
 
     render() {
         return (
             <div>
-                { !this.state.hasData ? <label>Loading...</label> : <input value={this.state.filter} onChange={this.handleSearchChange}/>}
+                {!this.state.hasData ? <label>Loading...</label> :
+                    <input value={this.state.filter} onChange={this.handleSearchChange}/>}
                 <TrackListItem items={this.state.trackList}/>
             </div>
         )
     }
 }
-
-// Tracks.propTypes = {
-//     trackList: PropTypes.arrayOf(PropTypes.shape({
-//         _id: PropTypes.string.isRequired,
-//         title: PropTypes.string.isRequired
-//     })),
-//     hasData: PropTypes.bool
-// };
-//
-// TrackListItem.defaultProps = {
-//     trackList: [],
-//     hasData: false
-// };
 
 export default Tracks;

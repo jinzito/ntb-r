@@ -1,9 +1,9 @@
 import React, {Component} from "react"
 import PropTypes from 'prop-types';
-import TrackItem from "./TrackItem";
+import TrackItem from "./TrackListItem";
 
 
-class TrackListItem extends Component {
+class TrackList extends Component {
 
     constructor(props) {
         super(props);
@@ -15,7 +15,7 @@ class TrackListItem extends Component {
                 <TrackItem
                     key={trackItem._id}
                     id={trackItem._id}
-                    title={trackItem.title}
+                    title={trackItem.title ? trackItem.title : "id:" + trackItem._id}
                 />
             );
         });
@@ -29,15 +29,15 @@ class TrackListItem extends Component {
     }
 }
 
-TrackListItem.propTypes = {
+TrackList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired
+        title: PropTypes.string
     }))
 };
 
-TrackListItem.defaultProps = {
+TrackList.defaultProps = {
     items: []
 };
 
-export default TrackListItem;
+export default TrackList;

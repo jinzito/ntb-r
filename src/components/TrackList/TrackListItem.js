@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import PropTypes from 'prop-types';
 
 
-class TrackItem extends Component {
+class TrackListItem extends Component {
 
     render() {
         return (
@@ -11,9 +11,9 @@ class TrackItem extends Component {
     }
 }
 
-TrackItem.propTypes = {
+TrackListItem.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string
 };
 
-export default TrackItem;
+export default TrackListItem;

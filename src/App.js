@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import Tracks from "./scenes/tracks/Tracks";
 import TrackDetails from "./scenes/tracks/TrackDetails";
+import StreamVisualizer from "./components/streaming/StreamVisualizer";
 
 class App extends Component {
 
@@ -27,7 +28,7 @@ class App extends Component {
                         <Route path="/track/:_id" component={TrackDetails}/>
                     </div>
                 </Router>
-
+                <StreamVisualizer/>
             </div>
         );
     }

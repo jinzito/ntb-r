@@ -1,34 +1,39 @@
-import React, {Component} from 'react';
-import './App.css';
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import Tracks from "./scenes/tracks/Tracks";
-import TrackDetails from "./scenes/tracks/TrackDetails";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import StreamVisualizer from "./components/streaming/StreamVisualizer";
+import StreamPanel from "./components/StreamPanel";
 
 class App extends Component {
 
 
     constructor(props) {
         super(props);
-        console.log("App()");
+        this.audioRef = React.createRef();
     }
 
     render() {
+
         return (
-            <div className="App">
+            <div className="App" style={{height: "100vh", width: "100vw", overflowY: "hidden"}}>
+                <audio
+                    autoPlay={true}
+                    ref={this.audioRef}
+                    src={"http://radio.ingi.by/stream"}
+                    crossOrigin={"anonymous"}
+                />
                 <Router>
-                    <div>
-                        <ul>
-                            <li><Link to="/tracks">Tracks</Link></li>
-                        </ul>
-
-                        <hr/>
-
-                        <Route path="/tracks" component={Tracks}/>
-                        <Route path="/track/:_id" component={TrackDetails}/>
-                    </div>
+                    {/*<Route path="/tracks/:_id" component={TrackDetails}/>*/}
+                    {/*<Route path="/pc/" component={PresetConverter}/>*/}
+                    {/*<Route path="/" component={Panel} audioRef={this.audioRef} aa={true}/>*/}
+                    <Route
+                        path="/"
+                        render={(routeProps) => (
+                           <StreamPanel {...routeProps} audioRef={this.audioRef}>
+                               <StreamVisualizer audioRef={this.audioRef} />
+                           </StreamPanel>
+                        )}
+                    />
                 </Router>
-                <StreamVisualizer/>
             </div>
         );
     }

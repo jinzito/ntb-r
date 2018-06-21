@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Header, Icon, Input, Segment, Sidebar, Divider, Item, Label } from "semantic-ui-react";
+import { Button, Header, Icon, Input, Segment, Sidebar, Divider, Item, Label, Loader } from "semantic-ui-react";
 import {connect} from 'react-redux';
 import * as actions from '../services/InfoActions';
 
@@ -7,7 +7,6 @@ class StreamPanel extends Component {
 
     constructor(props) {
         super(props);
-        console.log(":::", props);
     }
 
     state = {visible: true};
@@ -25,16 +24,14 @@ class StreamPanel extends Component {
             <div>
                 <Sidebar.Pushable as={Segment}>
                     <Sidebar  as={Segment} animation='overlay' direction='top' visible={visible}>
-                        <Button icon >
+                        <Button icon loading={this.props.isStreamLoading} >
                             <Icon name="play"/>
                         </Button>
                         <Button as='div' labelPosition='right'>
                             <Button icon>
                                 <Icon name='music' />
                             </Button>
-                            <Label as='a' basic pointing='left'>
-                                Spirit Kinnection by Chlorophil | Mixcloud
-                            </Label>
+                            <Label as='a' basic pointing='left'>{this.props.onAirTitle ? this.props.onAirTitle : "---"}</Label>
                         </Button>
                         <Button as='div' labelPosition='right'>
                             <Button icon>
@@ -59,8 +56,8 @@ class StreamPanel extends Component {
 
 const mapStateToProps = state => {
     return {
-        streamLoading: state.streamLoading,
-        info: state.info
+        isStreamLoading: state.stream.isLoading,
+        onAirTitle: state.info.onAirTitle
     }
 };
 
@@ -71,7 +68,6 @@ const mapDispatchToProps = dispatch => {
         }
     }
 };
-
 
 export default connect(
     mapStateToProps,

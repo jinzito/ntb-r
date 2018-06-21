@@ -4,6 +4,7 @@ import StreamVisualizer from "./components/streaming/StreamVisualizer";
 import StreamPanel from "./scenes/Info/containers/InfoPanel";
 import { Provider } from "react-redux";
 import {store, history} from "./redux"
+import Audio from "./scenes/Info/containers/Audio"
 
 class App extends Component {
 
@@ -18,8 +19,8 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <div className="App" style={{height: "100vh", width: "100vw", overflowY: "hidden"}}>
-                    <audio
-                        autoPlay={false}
+                    <Audio
+                        autoPlay={true}
                         ref={this.audioRef}
                         src={"http://radio.ingi.by/stream"}
                         crossOrigin={"anonymous"}
@@ -31,7 +32,7 @@ class App extends Component {
                         <Route
                             path="/"
                             render={(routeProps) => (
-                                <StreamPanel {...routeProps} audioRef={this.audioRef}>
+                                <StreamPanel {...routeProps}>
                                     <StreamVisualizer audioRef={this.audioRef}/>
                                 </StreamPanel>
                             )}

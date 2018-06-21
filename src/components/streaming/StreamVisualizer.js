@@ -28,7 +28,7 @@ class StreamVisualizer extends Component {
         });
 
 
-        // this.audioNode = new Audio();
+        // this.audioNode = new WrappedAudio();
         // this.audioNode.crossOrigin = "anonymous"; //
         // this.audioNode.src = "http://radio.ingi.by/stream";
         this.audioNode = this.props.audioRef.current;

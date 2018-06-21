@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Button, Header, Icon, Input, Segment, Sidebar, Divider, Item, Label } from "semantic-ui-react";
+import {connect} from 'react-redux';
+import * as actions from '../services/InfoActions';
 
 class StreamPanel extends Component {
 
@@ -11,6 +13,10 @@ class StreamPanel extends Component {
     state = {visible: true};
 
     toggleVisibility = () => this.setState({visible: !this.state.visible});
+
+    componentDidMount() {
+        this.props.loadInfo();
+    }
 
     render() {
         const {visible} = this.state;
@@ -51,4 +57,23 @@ class StreamPanel extends Component {
     }
 }
 
-export default StreamPanel;
+const mapStateToProps = state => {
+    return {
+        streamLoading: state.streamLoading,
+        info: state.info
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loadInfo: () => {
+            dispatch(actions.loadInfo())
+        }
+    }
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(StreamPanel)

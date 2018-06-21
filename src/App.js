@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 import StreamVisualizer from "./components/streaming/StreamVisualizer";
-import StreamPanel from "./components/StreamPanel";
+import StreamPanel from "./scenes/Info/containers/InfoPanel";
+import { Provider } from "react-redux";
+import {store, history} from "./redux"
 
 class App extends Component {
 
@@ -14,27 +16,29 @@ class App extends Component {
     render() {
 
         return (
-            <div className="App" style={{height: "100vh", width: "100vw", overflowY: "hidden"}}>
-                <audio
-                    autoPlay={true}
-                    ref={this.audioRef}
-                    src={"http://radio.ingi.by/stream"}
-                    crossOrigin={"anonymous"}
-                />
-                <Router>
-                    {/*<Route path="/tracks/:_id" component={TrackDetails}/>*/}
-                    {/*<Route path="/pc/" component={PresetConverter}/>*/}
-                    {/*<Route path="/" component={Panel} audioRef={this.audioRef} aa={true}/>*/}
-                    <Route
-                        path="/"
-                        render={(routeProps) => (
-                           <StreamPanel {...routeProps} audioRef={this.audioRef}>
-                               <StreamVisualizer audioRef={this.audioRef} />
-                           </StreamPanel>
-                        )}
+            <Provider store={store}>
+                <div className="App" style={{height: "100vh", width: "100vw", overflowY: "hidden"}}>
+                    <audio
+                        autoPlay={false}
+                        ref={this.audioRef}
+                        src={"http://radio.ingi.by/stream"}
+                        crossOrigin={"anonymous"}
                     />
-                </Router>
-            </div>
+                    <Router history={history}>
+                        {/*<Route path="/tracks/:_id" component={TrackDetails}/>*/}
+                        {/*<Route path="/pc/" component={PresetConverter}/>*/}
+                        {/*<Route path="/" component={Panel} audioRef={this.audioRef} aa={true}/>*/}
+                        <Route
+                            path="/"
+                            render={(routeProps) => (
+                                <StreamPanel {...routeProps} audioRef={this.audioRef}>
+                                    <StreamVisualizer audioRef={this.audioRef}/>
+                                </StreamPanel>
+                            )}
+                        />
+                    </Router>
+                </div>
+            </Provider>
         );
     }
 }

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Route, Router } from "react-router-dom";
-import StreamVisualizer from "./components/streaming/StreamVisualizer";
+import Visualizer from "./scenes/Info/containers/Visualizer";
 import StreamPanel from "./scenes/Info/containers/InfoPanel";
 import { Provider } from "react-redux";
-import {store, history} from "./redux"
-import Audio from "./scenes/Info/containers/Audio"
+import { history, store } from "./redux";
+import Audio from "./scenes/Info/containers/Audio";
 
 class App extends Component {
 
@@ -33,7 +33,8 @@ class App extends Component {
                             path="/"
                             render={(routeProps) => (
                                 <StreamPanel {...routeProps}>
-                                    <StreamVisualizer audioRef={this.audioRef}/>
+                                    {/*<StreamVisualizer audioRef={this.audioRef}/>*/}
+                                    <Visualizer audioRef={this.audioRef}/>
                                 </StreamPanel>
                             )}
                         />

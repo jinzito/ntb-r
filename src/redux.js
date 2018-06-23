@@ -1,4 +1,4 @@
-import { infoReducer, streamReducer } from "./scenes/Info";
+import { infoReducer, streamReducer, visualizerReducer } from "./scenes/Info";
 import { routerMiddleware, routerReducer } from "react-router-redux";
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
@@ -16,7 +16,8 @@ export const store = createStore(
     combineReducers({
         router: routerReducer,
         info: infoReducer,
-        stream: streamReducer
+        stream: streamReducer,
+        visualizer: visualizerReducer
     }),
     composeEnhancers(
         applyMiddleware(

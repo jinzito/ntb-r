@@ -15,6 +15,7 @@ class WrappedAudio extends React.Component {
             ref={this.props.rf}
             onPlay={this.props.onPlay}
             onPaste={this.props.onPause}
+            onCanPlay={this.props.onCanPlay}
         />;
     }
 }
@@ -32,7 +33,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPlay: () => dispatch(actions.onPlayStream()),
-        onPause: () => dispatch(actions.onPauseStream())
+        onPause: () => dispatch(actions.onPauseStream()),
+        onCanPlay: () => dispatch(actions.onCanPlay())
     };
 };
 

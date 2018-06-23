@@ -1,8 +1,13 @@
+export const ON_CAN_PLAY = "stream/on-can-play";
 export const DO_PLAY_STREAM = "stream/do-play-stream";
 export const ON_PLAY_STREAM = "stream/on-play-stream";
 export const DO_PAUSE_STREAM = "stream/do-pause-stream";
 export const ON_PAUSE_STREAM = "stream/on-pause-stream";
 export const ON_ERROR = "stream/on-error";
+
+export const onCanPlay = () => {
+    return {type: ON_CAN_PLAY};
+};
 
 export const doPlayStream = () => {
     return {type: DO_PLAY_STREAM};

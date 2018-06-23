@@ -1,6 +1,7 @@
 export const LOAD_INFO_SUCCESS = "info/info-success";
 export const LOAD_INFO_ERROR = "info/info-error";
 export const LOAD_INFO_REQUEST = "info/load-request";
+
 export const loadInfo = () => async dispatch => {
     dispatch({type: LOAD_INFO_REQUEST});
     try {

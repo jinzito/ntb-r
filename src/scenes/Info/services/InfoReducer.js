@@ -7,7 +7,7 @@ export const reducer = (state = {}, action) => {
                 ...state,
                 isLoading: true,
                 infoData: null,
-                onAirTitle: "nothing",
+                onAirTitle: "--",
                 error: null
             };
         case LOAD_INFO_SUCCESS:
@@ -25,7 +25,7 @@ export const reducer = (state = {}, action) => {
                 ...state,
                 isLoading: false,
                 infoData: null,
-                onAirTitle: "nothing",
+                onAirTitle: "--",
                 error: action.error
             };
         default:

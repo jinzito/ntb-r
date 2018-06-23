@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { Button, Header, Icon, Input, Segment, Sidebar, Divider, Item, Label, Loader } from "semantic-ui-react";
-import {connect} from 'react-redux';
-import * as actions from '../services/InfoActions';
+import { connect } from "react-redux";
+import { Button, Icon, Label, Segment, Sidebar } from "semantic-ui-react";
+import { loadInfo } from "../services/InfoActions";
+import {doChangePresetRandom} from "../services/VisualizerActions"
+
 
 class StreamPanel extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     state = {visible: true};
 
@@ -19,6 +17,7 @@ class StreamPanel extends Component {
 
     render() {
         const {visible} = this.state;
+
         return (
 
             <div>
@@ -38,9 +37,9 @@ class StreamPanel extends Component {
                                 <Icon name='video' />
                             </Button>
                             <Label as='a' basic pointing='left'>
-                                Spirit Kinnection by Chlorophil | Mixcloud
+                                {this.props.currentPresetName ? this.props.currentPresetName : "---"}
                             </Label>
-                            <Label as='a' basic pointing='left'>
+                            <Label as='a' basic pointing='left' onClick={this.props.doChangePresetRandom}>
                                 Next
                             </Label>
                         </Button>
@@ -57,15 +56,15 @@ class StreamPanel extends Component {
 const mapStateToProps = state => {
     return {
         isStreamLoading: state.stream.isLoading,
-        onAirTitle: state.info.onAirTitle
+        onAirTitle: state.info.onAirTitle,
+        currentPresetName: state.visualizer.currentPresetName
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadInfo: () => {
-            dispatch(actions.loadInfo())
-        }
+        loadInfo: () => dispatch(loadInfo()),
+        doChangePresetRandom: () => dispatch(doChangePresetRandom())
     }
 };
 

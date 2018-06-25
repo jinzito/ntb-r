@@ -29,7 +29,6 @@ class ButterChurnWrapped extends Component {
         });
 
         const audioNode = this.props.audioRef.current;
-        console.log(audioNode);
         if (!(audioNode instanceof HTMLAudioElement)) {
             throw new Error("prop audioRef on instance of HTMLAudioElement");
         }
@@ -53,6 +52,7 @@ class ButterChurnWrapped extends Component {
     loadRandomPreset = () => {
         const len = Object.keys(this.presets).length;
         const presetName = Object.keys(this.presets)[Math.round(Math.random() * len)];
+        // const presetName = "Flexi, martin + geiss - dedicated to the sherwin maxawow";
         const preset = this.presets[presetName];
         this.visualizer.loadPreset(preset, this.props.blendPresetTine);
 
@@ -95,7 +95,6 @@ class ButterChurnWrapped extends Component {
         const w = window.innerWidth;
         const h = window.innerHeight;
         this.setState({w: w, h: h});
-        console.log("w:", w, "h:", h);
         if (this.visualizer) {
             this.visualizer.setRendererSize(w, h);
         }

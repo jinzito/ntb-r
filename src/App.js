@@ -12,6 +12,9 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.audioRef = React.createRef();
+        if (!process.env.REACT_APP_STREAM_SOURCE || !process.env.REACT_APP_API) {
+            throw new Error("Env variables not specified");
+        }
     }
 
     render() {
@@ -22,7 +25,7 @@ class App extends Component {
                     <Audio
                         autoPlay={true}
                         ref={this.audioRef}
-                        src={"http://radio.ingi.by/stream"}
+                        src={process.env.REACT_APP_STREAM_SOURCE}
                         crossOrigin={"anonymous"}
                     />
                     <Router history={history}>
